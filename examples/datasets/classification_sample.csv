@@ -1,0 +1,11 @@
+# Sample classification dataset for testing
+text,label
+"This product exceeded my expectations!",positive
+"Absolutely love it, will buy again.",positive
+"Great quality and fast shipping.",positive
+"Terrible experience, would not recommend.",negative
+"Worst purchase ever made.",negative
+"Product broke after one use.",negative
+"It's okay, nothing special.",neutral
+"Average quality for the price.",neutral
+"Neither good nor bad.",neutral

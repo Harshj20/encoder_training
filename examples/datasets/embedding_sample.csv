@@ -1,0 +1,7 @@
+# Sample embedding dataset for testing (text pairs for contrastive learning)
+text,text_pair
+"What is machine learning?","Machine learning is a subset of AI"
+"How to train a neural network?","Neural network training tutorial"
+"Python programming basics","Introduction to Python programming"
+"Best practices for data science","Data science best practices guide"
+"Deep learning fundamentals", "Fundamentals of deep neural networks"

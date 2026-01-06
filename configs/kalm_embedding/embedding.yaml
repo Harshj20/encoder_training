@@ -1,0 +1,44 @@
+# Configuration for KALM Embedding 2.5 - Text Embedding
+
+model:
+  name: "kalm-embedding-2.5"
+  pretrained_path: "Kalm/kalm-embedding-2.5-instruct"  # UPDATE with actual model ID
+  max_seq_length: 512
+  pooling_mode: "mean"
+  embedding_dim: null  # Will be inferred from model
+  projection_dim: null  # Optional projection layer
+
+training:
+  output_dir: "./output/kalm-embedding"
+  batch_size: 32
+  learning_rate: 1e-5
+  num_epochs: 5
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  gradient_accumulation_steps: 1
+  fp16: true
+  optimizer: "adamw"
+  scheduler: "linear"
+  dataloader_num_workers: 4
+  
+  # Contrastive learning specific
+  contrastive_loss: "infonce"
+  temperature: 0.05
+
+data:
+  train_file: "data/train_pairs.csv"
+  val_file: "data/val_pairs.csv"
+  text_column: "text"
+  text_pair_column: "text_pair"  # Positive examples
+  data_format: "csv"
+  max_samples: null
+
+evaluation:
+  eval_steps: 1000
+  save_steps: 1000
+  logging_steps: 100
+  save_total_limit: 3
+
+seed: 42
+device: "cuda"

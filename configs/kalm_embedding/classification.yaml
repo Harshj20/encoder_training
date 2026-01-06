@@ -1,0 +1,45 @@
+# Configuration for KALM Embedding 2.5 - Text Classification
+
+model:
+  name: "kalm-embedding-2.5"
+  pretrained_path: "Kalm/kalm-embedding-2.5-instruct"  # UPDATE with actual model ID
+  max_seq_length: 512
+  num_labels: null  # Will be inferred from data
+  dropout: 0.1
+
+training:
+  output_dir: "./output/kalm-classification"
+  batch_size: 16
+  learning_rate: 2e-5
+  num_epochs: 10
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  gradient_accumulation_steps: 1
+  fp16: true
+  optimizer: "adamw"
+  scheduler: "linear"
+  dataloader_num_workers: 4
+
+data:
+  train_file: "data/train.csv"
+  val_file: "data/val.csv"
+  test_file: "data/test.csv"
+  text_column: "text"
+  label_column: "label"
+  data_format: "csv"
+  lowercase: false
+  max_samples: null
+
+evaluation:
+  eval_steps: 500
+  save_steps: 500
+  logging_steps: 100
+  metric_for_best_model: "f1"
+  greater_is_better: true
+  save_total_limit: 3
+  load_best_model_at_end: true
+  early_stopping_patience: null
+
+seed: 42
+device: "cuda"
