@@ -1,0 +1,64 @@
+model:
+  name_or_path: "intfloat/multilingual-e5-small"
+  tokenizer: null
+  pooling:
+    mode: "mean"
+    layers: [-1]
+    normalize: true
+  classifier_hidden: 512
+  num_labels: 3
+  dropout: 0.1
+
+training:
+  mode: "full"  # Full finetuning
+  epochs: 3
+  per_device_train_batch_size: 4  # Small for ~1B models
+  per_device_eval_batch_size: 16
+  gradient_accumulation_steps: 8  # Effective batch size: 4 * 8 = 32
+  fp16: true
+  bf16: false
+  max_seq_length: 256
+  optimizer: "adamw"
+  lr: 2e-5
+  weight_decay: 0.01
+  scheduler: "linear"
+  warmup_ratio: 0.1
+  max_grad_norm: 1.0
+  seed: 42
+  logging_steps: 10
+  eval_steps: 500
+  save_steps: 500
+  save_total_limit: 3
+  output_dir: "./outputs/full_deepspeed"
+
+data:
+  type: "single"
+  dataset: "examples/sample_dataset.csv"
+  split: "train"
+  streaming: false
+  text_field: "text"
+  label_field: "label"
+  max_samples: null
+
+peft:
+  enabled: false
+
+deepspeed:
+  enabled: true  # Enable DeepSpeed
+  config:
+    train_batch_size: 32  # per_device_batch_size * grad_accum * num_gpus
+    train_micro_batch_size_per_gpu: 4
+    gradient_accumulation_steps: 8
+    fp16:
+      enabled: true
+    zero_optimization:
+      stage: 2  # ZeRO stage 2 for memory efficiency
+      offload_optimizer:
+        device: "cpu"
+        pin_memory: true
+      overlap_comm: true
+      contiguous_gradients: true
+
+loss:
+  type: "classification"
+  multi_label: false

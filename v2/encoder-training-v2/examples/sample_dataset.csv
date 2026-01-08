@@ -1,0 +1,11 @@
+text,label
+"This is a positive example",1
+"This is a negative example",0
+"Another positive sentiment",1
+"Bad experience overall",0
+"Neutral statement here",0
+"Great product quality",1
+"Terrible service received",0
+"Amazing results achieved",1
+"Average performance only",0
+"Excellent work done",1

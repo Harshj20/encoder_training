@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  encoder-training:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: encoder-training:latest
+    volumes:
+      - ../data:/app/data  # Mount data directory
+      - ../outputs:/app/outputs  # Mount outputs directory
+    environment:
+      - CUDA_VISIBLE_DEVICES=0  # Specify GPU
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: python -m src.train --config src/experiments/head_only.yaml
