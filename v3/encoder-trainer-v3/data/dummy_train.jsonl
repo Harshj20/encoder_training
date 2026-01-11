@@ -1,0 +1,7 @@
+[
+    {"text": "The movie was great", "label": "positive"},
+    {"text": "I hated the film", "label": "negative"},
+    {"text": "It was okay", "label": "neutral"},
+    {"text": "Best cinema ever", "label": "positive"},
+    {"text": "Worst experience", "label": "negative"}
+]
